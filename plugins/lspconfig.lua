@@ -1,6 +1,8 @@
 local on_attach = require("plugins.configs.lspconfig").on_attach
 local capabilities = require("plugins.configs.lspconfig").capabilities
 
+capabilities.offsetEncoding = "utf-8"
+
 local lspconfig = require "lspconfig"
 
 local servers = { "html", "cssls", "tsserver", "clangd" }
@@ -10,9 +12,5 @@ for _, lsp in ipairs(servers) do
     on_attach = on_attach,
     capabilities = capabilities,
   }
-
-  if lsp == "clangd" then
-    capabilities.offsetEncoding = "utf-8"
-  end
 
 end
