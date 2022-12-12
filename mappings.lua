@@ -3,6 +3,7 @@ local M = {}
 M.general = {
   n = {
     [";"] = { ":", "command mode", opts = { nowait = true } },
+    ["<A-1>"] = { "<cmd>NvimTreeToggle<cr>", "Toogle File Browser" },
     ["<A-j>"] = { ":m .+1<CR>==", "move line down" },
     ["<A-k>"] = { ":m .-2<CR>==", "move line up" },
     ["<A-Down>"] = { ":m .+1<CR>==", "move line down" },
