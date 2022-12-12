@@ -28,6 +28,11 @@ M.mason = {
 
 -- git support in nvimtree
 M.nvimtree = {
+  create_in_closed_folder = true,
+  hijack_cursor = true,
+  open_on_setup = true,
+  open_on_setup_file = false,
+  sync_root_with_cwd = true,
   git = {
     enable = true,
   },
@@ -40,6 +45,48 @@ M.nvimtree = {
       },
     },
   },
+  update_focused_file = {
+    enable = true,
+    update_root = true,
+    ignore_list = { "help" },
+  },
+  diagnostics = {
+    enable = true,
+    show_on_dirs = true,
+  },
+  filters = {
+    custom = {
+      "^.git$",
+    },
+  },
+  actions = {
+    change_dir = {
+      enable = true,
+      restrict_above_cwd = false,
+    },
+    open_file = {
+      resize_window = true,
+      window_picker = {
+        chars = "aoeui",
+      },
+    },
+    remove_file = {
+      close_window = false,
+    },
+  },
+  log = {
+    enable = false,
+    truncate = true,
+    types = {
+      all = false,
+      config = false,
+      copy_paste = false,
+      diagnostics = false,
+      git = false,
+      profile = false,
+      watcher = false,
+    },
+  }
 }
 
 return M
