@@ -28,10 +28,9 @@ M.mason = {
 
 -- git support in nvimtree
 M.nvimtree = {
-  create_in_closed_folder = true,
   hijack_cursor = true,
   open_on_setup = true,
-  open_on_setup_file = false,
+  open_on_setup_file = true,
   sync_root_with_cwd = true,
   git = {
     enable = true,
