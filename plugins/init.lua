@@ -57,6 +57,8 @@ return {
     event = "BufRead",
     config = function() require("lsp_signature").setup() end,
   },
+
+  ["kdheepak/lazygit.nvim"] = {},
   -- remove plugin
   -- ["hrsh7th/cmp-path"] = false,
 }
