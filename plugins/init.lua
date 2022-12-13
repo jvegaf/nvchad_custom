@@ -9,6 +9,8 @@ return {
     end,
   },
 
+  ["nvim-telescope/telescope.nvim"] = {},
+
   ["folke/which-key.nvim"] = {
     disable = false,
     config = function()
@@ -46,7 +48,21 @@ return {
     end,
   },
 
+  ["rcarriga/nvim-notify"] = {},
+
   -- code formatting, linting etc
+  ["simrat39/inlay-hints.nvim"] = {
+    config = function()
+      require("inlay-hints").setup()
+    end,
+  },
+
+  ["jose-elias-alvarez/typescript.nvim"] = {
+    config = function()
+      require "custom.plugins.typescript"
+    end,
+  },
+
   ["jose-elias-alvarez/null-ls.nvim"] = {
     after = "nvim-lspconfig",
     config = function()
@@ -98,6 +114,4 @@ return {
       require "custom.plugins.nvim-ufo"
     end,
   },
-  -- remove plugin
-  -- ["hrsh7th/cmp-path"] = false,
 }

@@ -5,6 +5,7 @@ if not present then
 end
 
 wk.register({
+  a = { name = "Application" },
   c = { name = "LSP" },
   f = { name = "Find" },
   g = { name = "Git" },

@@ -15,7 +15,9 @@ M.general = {
       "close buffer",
     },
     ["<leader>gg"] = { "<cmd>LazyGit<cr>", "LazyGit" },
-    ["<leader>d"] = { "<cmd>Alpha<cr>", "Dashboard" },
+    ["<leader>as"] = { "<cmd>PackerStatus<cr>", "Packer Status" },
+    ["<leader>ai"] = { "<cmd>PackerInstall<cr>", "Packer Install" },
+    ["<leader>au"] = { "<cmd>PackerSync<cr>", "Packer Sync" },
   },
   v = {
     ["s"] = { ":'<,'>BrowserSearch<cr>", "Browser Search" },

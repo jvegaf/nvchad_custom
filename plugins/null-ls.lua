@@ -9,12 +9,9 @@ local b = null_ls.builtins
 local sources = {
 
   -- webdev stuff
-  b.formatting.deno_fmt,
   b.formatting.prettier.with { filetypes = { "html", "markdown", "css" } },
-
   -- Lua
   b.formatting.stylua,
-
   -- Shell
   b.formatting.shfmt,
   b.diagnostics.shellcheck.with { diagnostics_format = "#{m} [#{c}]" },
@@ -22,6 +19,7 @@ local sources = {
   -- cpp
   b.formatting.clang_format,
   b.formatting.rustfmt,
+  require("typescript.extensions.null-ls.code-actions"),
 }
 
 null_ls.setup {
