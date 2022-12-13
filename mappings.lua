@@ -15,6 +15,7 @@ M.general = {
       "close buffer",
     },
     ["<leader>gg"] = { "<cmd>LazyGit<cr>", "LazyGit" },
+    ["<leader>d"] = { "<cmd>Alpha<cr>", "Dashboard" },
   },
   v = {
     ["s"] = { ":'<,'>BrowserSearch<cr>", "Browser Search" },
