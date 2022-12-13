@@ -1,7 +1,4 @@
 local opt = vim.opt
-local g = vim.g
-
-g.autoformat_enabled = true
 
 opt.relativenumber = true
 opt.conceallevel = 2
@@ -12,6 +9,7 @@ opt.linebreak = true -- linebreak soft wrap at word
 opt.list = true -- sow whitespace character
 opt.listchars = { tab = " ", extends = "⟩", precedes = "⟨", trail = "·", eol = "﬋" }
 opt.showbreak = "﬌ "
+opt.cmdheight = 1
 
 local function tab_win_closed(winnr)
   local api = require "nvim-tree.api"
@@ -47,6 +45,13 @@ vim.api.nvim_create_autocmd("WinClosed", {
   callback = function()
     local winnr = tonumber(vim.fn.expand "<amatch>")
     vim.schedule_wrap(tab_win_closed(winnr))
+  end,
+  nested = true,
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  callback = function()
+    vim.lsp.buf.formatting_sync()
   end,
   nested = true,
 })

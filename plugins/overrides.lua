@@ -22,7 +22,7 @@ M.mason = {
     "css-lsp",
     "html-lsp",
     "typescript-language-server",
-    "deno",
+    "angularls",
   },
 }
 
@@ -70,7 +70,7 @@ M.nvimtree = {
       },
     },
     remove_file = {
-      close_window = false,
+      close_window = true,
     },
   },
   log = {
@@ -85,7 +85,7 @@ M.nvimtree = {
       profile = false,
       watcher = false,
     },
-  }
+  },
 }
 
 return M
