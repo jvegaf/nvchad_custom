@@ -210,13 +210,15 @@ if vim.api.nvim_exec("echo argc()", true) == "0" then
   local buttons = {
     type = "group",
     val = {
-      button("e", "  New Buffer", ":tabnew<CR>"),
-      button("f", "  Find file", ":Telescope find_files<CR>"),
-      button("h", "  Recently opened files", ":Telescope oldfiles<CR>"),
-      button("r", "  Frecency/MRU", ":Telescope oldfiles<CR>"),
-      button("g", "  Open Last Session", ":source ~/.config/nvim/session.vim<CR>"),
-      button("m", "  Word Finder", ":Telescope live_grep<CR>"),
-      button("l", "  Marks", ":Telescope marks<CR>"),
+      button("e", "  New Buffer", ":tabnew<CR>", { nil }),
+      button("SPC f f", "   Find file", ":Telescope find_files<CR>", { nil }),
+      button("SPC f h", "   Recently opened files", ":Telescope oldfiles<CR>", { nil }),
+      button("SPC t h", "   Themes  ", ":Telescope themes<CR>", { nil }),
+      button("SPC s l", "   Open Last Session", ":source ~/.config/nvim/session.vim<CR>", { nil }),
+      button("SPC l p", "   Projects", ":Telescope projects<CR>", { nil }),
+      button("SPC f w", "   Word Finder", ":Telescope live_grep<CR>", { nil }),
+      button("SPC a u", "   Update Plugins", ":PackerSync<CR>", { nil }),
+      button("SPC e s", "   Settings", ":e $MYVIMRC | :cd %:p:h <CR>", { nil }),
     },
     opts = {
       spacing = 1,

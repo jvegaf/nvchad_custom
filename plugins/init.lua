@@ -2,7 +2,12 @@ local overrides = require "custom.plugins.overrides"
 
 return {
 
-  ["goolord/alpha-nvim"] = { disable = false }, -- enables dashboard
+  ["goolord/alpha-nvim"] = {
+    disable = false,
+    config = function()
+      require "custom.plugins.alpha"
+    end,
+  },
 
   ["folke/which-key.nvim"] = {
     disable = false,
