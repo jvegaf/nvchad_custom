@@ -79,7 +79,19 @@ return {
       require "custom.plugins.lightbulb"
     end,
   },
+  -- project.nvim
+  ["ahmedkhalf/project.nvim"] = {
+    config = function()
+      require "custom.plugins.project"
+    end,
+  },
 
+  ["kevinhwang91/nvim-ufo"] = {
+    requires = "kevinhwang91/promise-async",
+    config = function()
+      require "custom.plugins.nvim-ufo"
+    end,
+  },
   -- remove plugin
   -- ["hrsh7th/cmp-path"] = false,
 }
