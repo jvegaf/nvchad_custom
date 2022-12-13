@@ -34,9 +34,10 @@ return {
   },
 
   ["kyazdani42/nvim-tree.lua"] = {
-    override_options = overrides.nvimtree,
+    config = function()
+      require "custom.plugins.nvim-tree"
+    end,
   },
-
   -- Install a plugin
   ["max397574/better-escape.nvim"] = {
     event = "InsertEnter",
