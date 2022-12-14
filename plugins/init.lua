@@ -153,4 +153,6 @@ return {
       require "custom.plugins.nvim-ufo"
     end,
   },
+
+  ["junegunn/vim-easy-align"] = {},
 }

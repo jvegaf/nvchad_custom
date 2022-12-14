@@ -19,6 +19,7 @@ M.general = {
     ["<leader>as"] = { "<cmd>PackerStatus<cr>", "Packer Status" },
     ["<leader>ai"] = { "<cmd>PackerInstall<cr>", "Packer Install" },
     ["<leader>au"] = { "<cmd>PackerSync<cr>", "Packer Sync" },
+    ["ga"] = { "<Plug>EasyAlign", "EasyAlign" },
   },
   v = {
     ["s"] = { ":'<,'>BrowserSearch<cr>", "Browser Search" },
@@ -28,6 +29,9 @@ M.general = {
     ["<A-k>"] = { ":MoveBlock(-1)<CR>", "move block up" },
     ["<A-Down>"] = { "<cmd> :m '>+1<CR>gv=gv", "move line down" },
     ["<A-Up>"] = { "<cmd> :m '<-2<CR>gv=gv", "move line up" },
+  },
+  x = {
+    ["ga"] = { "<Plug>EasyAlign", "EasyAlign" },
   },
 }
 
