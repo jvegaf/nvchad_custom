@@ -12,3 +12,5 @@ vim.g.clipboard = {
     ["*"] = "win32yank.exe -o --lf",
   },
 }
+
+vim.g.sqlite_clib_path = "custom/utils/sqlite_win/sqlite.dll"

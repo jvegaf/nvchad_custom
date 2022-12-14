@@ -19,6 +19,26 @@ return {
 
   ["nvim-telescope/telescope.nvim"] = {
     cmd = "Telescope",
+    requires = {
+      "nvim-telescope/telescope-project.nvim",
+      "nvim-telescope/telescope-symbols.nvim",
+      "nvim-telescope/telescope-media-files.nvim",
+      "nvim-telescope/telescope-file-browser.nvim",
+      "nvim-telescope/telescope-github.nvim",
+      "fhill2/telescope-ultisnips.nvim",
+      "cljoly/telescope-repo.nvim",
+      -- 'nvim-telescope/telescope-hop.nvim'
+      { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+      {
+        "nvim-telescope/telescope-arecibo.nvim",
+        rocks = { "openssl", "lua-http-parser" },
+      },
+      {
+        "nvim-telescope/telescope-frecency.nvim",
+        requires = { "tami5/sql.nvim" },
+      },
+      "xiyaowong/telescope-emoji.nvim",
+    },
     config = function()
       require "custom.plugins.telescope"
     end,
@@ -26,16 +46,6 @@ return {
       require("core.utils").load_mappings "telescope"
     end,
   },
-
-  ["nvim-telescope/telescope-fzf-native.nvim"] = {
-    run = "make",
-  },
-
-  ["nvim-telescope/telescope-project.nvim"] = {},
-
-  ["nvim-telescope/telescope-file-browser.nvim"] = {},
-
-  ["xiyaowong/telescope-emoji.nvim"] = {},
 
   ["Shatur/neovim-session-manager"] = {
     config = function()
@@ -130,6 +140,8 @@ return {
     end,
   },
 
+  ["windwp/nvim-spectre"] = { event = "VimEnter" },
+
   ["kdheepak/lazygit.nvim"] = {},
 
   ["antoinemadec/FixCursorHold.nvim"] = {},
@@ -142,6 +154,7 @@ return {
   },
   -- project.nvim
   ["ahmedkhalf/project.nvim"] = {
+    event = "VimEnter",
     config = function()
       require "custom.plugins.project"
     end,
@@ -154,5 +167,20 @@ return {
     end,
   },
 
-  ["junegunn/vim-easy-align"] = {},
+  ["junegunn/vim-easy-align"] = { event = "BufReadPost" },
+
+  ["j-hui/fidget.nvim"] = {
+    event = "BufReadPre",
+    config = function()
+      require("fidget").setup {}
+    end,
+  },
+
+  ["mrjones2014/legendary.nvim"] = {
+    keys = { [[<C-p>]] },
+    config = function()
+      require "custom.plugins.legendary"
+    end,
+    requires = { "stevearc/dressing.nvim", "kkharji/sqlite.lua" },
+  },
 }

@@ -59,7 +59,18 @@ local options = {
     },
   },
 
-  extensions_list = { "themes", "terms", "project", "emoji" },
+  extensions_list = {
+    "themes",
+    "terms",
+    "project",
+    "emoji",
+    "ultisnips",
+    "gh",
+    "arecibo",
+    "frecency",
+    "file_browser",
+    "neoclip",
+  },
 }
 
 -- check for any override
