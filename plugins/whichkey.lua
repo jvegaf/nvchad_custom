@@ -23,14 +23,30 @@ local visual_opts = {
 }
 
 local normal_mode_mappings = {
-  a = {
-    name = "Application",
+  z = {
+    name = "System",
+    b = {
+      "<Cmd>hi Normal ctermbg=none guibg=none<CR>",
+      "Transparent background",
+    },
     d = { "<cmd>Alpha<CR>", "open Dashboard" },
+    i = { "<Cmd>PackerStatus<Cr>", "Packer status" },
+    s = { "<Cmd>PackerSync<Cr>", "Packer sync" },
+
+    S = { ":<C-u>SaveSession<Cr>", "Save session" },
+    L = { ":<C-u>SearchSession<Cr>", "Load session" },
+    -- h = { "<Cmd>15sp +term<CR>", "New horizontal terminal" },
     m = {
       function()
         require("telescope").extensions.notify.notify()
       end,
       "Messages",
+    },
+    t = { "<Cmd>Telescope colorscheme<Cr>", "Color scheme" },
+    y = { "<Cmd>Telescope neoclip<Cr>", "Clipboard manager" },
+    z = {
+      ":e $MYVIMRC | :cd %:p:h <CR>",
+      "Configuration",
     },
   },
   b = {
@@ -42,16 +58,6 @@ local normal_mode_mappings = {
     n = { "<Cmd>bn<Cr>", "Next buffer" },
     p = { "<Cmd>bp<Cr>", "Previous buffer" },
     f = { "<Cmd>bd!<Cr>", "Force delete current buffer" },
-  },
-  c = {
-    name = "Telescope",
-    p = {
-      function()
-        require("telescope").extensions.project.project {}
-      end,
-      "Project",
-    },
-    t = { "<cmd>Telescope colorscheme<CR>", "Themes" },
   },
   f = {
     name = "File",
