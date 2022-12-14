@@ -13,7 +13,7 @@ vim.opt.termguicolors = true
 nvimtree.setup {
   hijack_cursor = true,
   open_on_setup = true,
-  open_on_setup_file = false,
+  open_on_setup_file = true,
   sync_root_with_cwd = true,
   view = {
     adaptive_size = false,
@@ -33,10 +33,9 @@ nvimtree.setup {
         { key = "-", action = "" }, -- dir_up
         { key = "s", action = "" }, -- system_open
         { key = "W", action = "" }, -- collapse_all
-        { key = "g?", action = "" }, -- toggle_help
-
-        { key = "d", action = "cd" }, -- remove
-        { key = "r", action = "remove" }, -- cut
+        { key = "r", action = "rename" }, -- toggle_help
+        { key = "c", action = "cd" },
+        { key = "d", action = "remove" }, -- cut
         { key = "h", action = "close_node" },
         { key = "H", action = "collapse_all" },
         { key = "t", action = "cut" },
@@ -120,9 +119,9 @@ nvimtree.setup {
     truncate = true,
     types = {
       all = false,
-      config = false,
+      config = true,
       copy_paste = false,
-      diagnostics = false,
+      diagnostics = true,
       git = false,
       profile = false,
       watcher = false,
