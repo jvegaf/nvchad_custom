@@ -27,6 +27,10 @@ return {
     end,
   },
 
+  ["nvim-telescope/telescope-fzf-native.nvim"] = {
+    run = "make",
+  },
+
   ["nvim-telescope/telescope-project.nvim"] = {},
 
   ["nvim-telescope/telescope-file-browser.nvim"] = {},
@@ -37,6 +41,15 @@ return {
     config = function()
       require "custom.plugins.session-manager"
     end,
+  },
+
+  ["fedepujol/move.nvim"] = {},
+
+  ["ThePrimeagen/refactoring.nvim"] = {
+    requires = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-treesitter/nvim-treesitter" },
+    },
   },
 
   ["folke/which-key.nvim"] = {

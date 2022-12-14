@@ -2,12 +2,13 @@ local M = {}
 
 M.general = {
   n = {
-    [";"] = { ":", "command mode", opts = { nowait = true } },
     ["<A-1>"] = { "<cmd>NvimTreeToggle<cr>", "Toogle File Browser" },
-    ["<A-j>"] = { ":m .+1<CR>==", "move line down" },
-    ["<A-k>"] = { ":m .-2<CR>==", "move line up" },
-    ["<A-Down>"] = { ":m .+1<CR>==", "move line down" },
-    ["<A-Up>"] = { ":m .-2<CR>==", "move line up" }, -- close buffer + hide terminal buffer
+    ["<A-h>"] = { ":MoveHChar(-1)<CR>", "Move Char Left" },
+    ["<A-j>"] = { ":MoveLine(1)<CR>", "move line down" },
+    ["<A-k>"] = { ":MoveLine(-1)<CR>", "move line up" },
+    ["<A-l>"] = { ":MoveHChar(1)<CR>", "Move Char Right" },
+    ["<A-Down>"] = { ":MoveLine(1)<CR>", "move line down" },
+    ["<A-Up>"] = { ":MoveLine(-1)<CR>", "move line up" }, -- close buffer + hide terminal buffer
     ["<S-q>"] = {
       function()
         require("nvchad_ui.tabufline").close_buffer()
@@ -21,9 +22,10 @@ M.general = {
   },
   v = {
     ["s"] = { ":'<,'>BrowserSearch<cr>", "Browser Search" },
-    -- move lines
-    ["<A-j>"] = { "<cmd> :m '>+1<CR>gv=gv", "move line down" },
-    ["<A-k>"] = { "<cmd> :m '<-2<CR>gv=gv", "move line up" },
+    ["<A-h>"] = { ":MoveHBlock(-1)<CR>", "Move Char Left" },
+    ["<A-l>"] = { ":MoveHBlock(1)<CR>", "Move Char Left" },
+    ["<A-j>"] = { ":MoveBlock(1)<CR>", "move block down" },
+    ["<A-k>"] = { ":MoveBlock(-1)<CR>", "move block up" },
     ["<A-Down>"] = { "<cmd> :m '>+1<CR>gv=gv", "move line down" },
     ["<A-Up>"] = { "<cmd> :m '<-2<CR>gv=gv", "move line up" },
   },
