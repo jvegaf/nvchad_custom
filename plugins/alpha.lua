@@ -201,7 +201,7 @@ if vim.api.nvim_exec("echo argc()", true) == "0" then
       button("SPC f f", "       Find file", ":Telescope find_files<CR>", { silent = true }),
       button("SPC t h", "       Themes  ", ":Telescope themes<CR>", { silent = true }),
       button("SPC s l", "       Open Last Session", ":source ~/.config/nvim/session.vim<CR>", { silent = true }),
-      button("SPC l p", "       Projects", ":Telescope projects<CR>", { silent = true }),
+      button("SPC l p", "       Projects", ":Telescope project<CR>", { silent = true }),
       button("SPC f w", "       Word Finder", ":Telescope live_grep<CR>", { silent = true }),
       button("SPC a u", "       Update Plugins", ":PackerSync<CR>", { silent = true }),
       button("SPC e s", "       Settings", ":e $MYVIMRC | :cd %:p:h <CR>", { silent = true }),

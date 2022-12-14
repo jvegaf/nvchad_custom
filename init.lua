@@ -1,16 +1,4 @@
-local opt = vim.opt
-
-opt.relativenumber = true
-opt.conceallevel = 2
-opt.foldcolumn = "1"
-opt.foldlevel = 99
-opt.foldlevelstart = 99
-opt.foldenable = true
-opt.linebreak = true -- linebreak soft wrap at word
-opt.list = true -- sow whitespace character
-opt.listchars = { tab = " ", extends = "⟩", precedes = "⟨", trail = "·", eol = "﬋" }
-opt.showbreak = "﬌ "
-opt.cmdheight = 1
+require "custom.options"
 
 local function tab_win_closed(winnr)
   local api = require "nvim-tree.api"
@@ -57,15 +45,12 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   nested = true,
 })
 
-local has = function(x)
-  return vim.fn.has(x) == 1
-end
+local config_group = vim.api.nvim_create_augroup("MyConfigGroup", {}) -- A global group for all your config autocommands
 
-local is_win = has "win32"
--- local is_lin = has "linux"
-
-if is_win then
-  require "custom.windows"
-end
-
--- if is_lin then require "custom.linux" end
+vim.api.nvim_create_autocmd({ "User" }, {
+  pattern = "SessionLoadPost",
+  group = config_group,
+  callback = function()
+    require("nvim-tree").toggle(false, true)
+  end,
+})

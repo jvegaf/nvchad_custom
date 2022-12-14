@@ -9,7 +9,35 @@ return {
     end,
   },
 
-  ["nvim-telescope/telescope.nvim"] = {},
+  ["rcarriga/nvim-notify"] = {},
+
+  ["stevearc/dressing.nvim"] = {
+    config = function()
+      require "custom.plugins.dressing"
+    end,
+  },
+
+  ["nvim-telescope/telescope.nvim"] = {
+    cmd = "Telescope",
+    config = function()
+      require "custom.plugins.telescope"
+    end,
+    setup = function()
+      require("core.utils").load_mappings "telescope"
+    end,
+  },
+
+  ["nvim-telescope/telescope-project.nvim"] = {},
+
+  ["nvim-telescope/telescope-file-browser.nvim"] = {},
+
+  ["xiyaowong/telescope-emoji.nvim"] = {},
+
+  ["Shatur/neovim-session-manager"] = {
+    config = function()
+      require "custom.plugins.session-manager"
+    end,
+  },
 
   ["folke/which-key.nvim"] = {
     disable = false,
@@ -47,8 +75,6 @@ return {
       require("better_escape").setup()
     end,
   },
-
-  ["rcarriga/nvim-notify"] = {},
 
   -- code formatting, linting etc
   ["simrat39/inlay-hints.nvim"] = {
