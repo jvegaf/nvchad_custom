@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+##? Setups the environment
+#?? 1.0.0
+##?
+##? Usage:
+##?    install
+
+echo "🚀 Welcome to the jvegaf/dotfiles installer!"
+echo "-------------------------------------------------"
+echo
+
+if grep -qEi "(archlinux)" /proc/version &> /dev/null ; then
+    echo "Installing previuos dependencies"
+    ## TODO
+    # sudo pacman -S git base-devel luarocks ripgrep fd fzf  --noconfirm --needed
+else 
+    echo "Installing previuos dependencies"
+    sudo apt-get update && sudo apt-get install -y build-essential fzf fonts-powerline
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+fi
+
+export PATH="$HOME/.cargo/bin:$PATH"
+cargo install docpars
+
+export DOTFILES_PATH="$HOME/.dotfiles"
+echo "👉  Cloning into: '$DOTFILES_PATH'"
+
+git clone --recurse-submodules -j8 --depth 1 https://github.com/jvegaf/dotfiles.git "$DOTFILES_PATH"
+export DOTLY_PATH="$DOTFILES_PATH/modules/dotly"
+
+echo "Installing dotly 🌚"
+"$DOTLY_PATH/bin/dot" self install
+
+echo "Installing Linux Packages"
+"$DOTLY_PATH/bin/dot" self install_custom
