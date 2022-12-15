@@ -23,32 +23,6 @@ local visual_opts = {
 }
 
 local normal_mode_mappings = {
-  z = {
-    name = "System",
-    b = {
-      "<Cmd>hi Normal ctermbg=none guibg=none<CR>",
-      "Transparent background",
-    },
-    d = { "<cmd>Alpha<CR>", "open Dashboard" },
-    i = { "<Cmd>PackerStatus<Cr>", "Packer status" },
-    s = { "<Cmd>PackerSync<Cr>", "Packer sync" },
-
-    S = { ":<C-u>SaveSession<Cr>", "Save session" },
-    L = { ":<C-u>SearchSession<Cr>", "Load session" },
-    -- h = { "<Cmd>15sp +term<CR>", "New horizontal terminal" },
-    m = {
-      function()
-        require("telescope").extensions.notify.notify()
-      end,
-      "Messages",
-    },
-    t = { "<Cmd>Telescope colorscheme<Cr>", "Color scheme" },
-    y = { "<Cmd>Telescope neoclip<Cr>", "Clipboard manager" },
-    z = {
-      ":e $MYVIMRC | :cd %:p:h <CR>",
-      "Configuration",
-    },
-  },
   b = {
     name = "Buffer",
     -- a = { "<Cmd>%bd|e#|bd#<Cr>", "Delete all buffers" },
@@ -70,7 +44,6 @@ local normal_mode_mappings = {
     o = { "<Cmd>Telescope oldfiles<Cr>", "Old files" },
     m = { "<Cmd>Telescope marks<Cr>", "Mark" },
     n = { "<Cmd>ene <BAR> startinsert <Cr>", "New file" },
-    r = { "<Cmd>Telescope frecency<Cr>", "Recent file" },
     s = { "<Cmd>Telescope symbols<Cr>", "Symbols" },
     a = { "<Cmd>xa<Cr>", "Save all & quit" },
     e = { "<Cmd>NvimTreeToggle<CR>", "Explorer" },
@@ -129,9 +102,36 @@ local normal_mode_mappings = {
     w = { "<cmd>Telescope grep_string theme=dropdown<CR>", "search word" },
     z = { "<Plug>SearchNormal", "Browser search" },
   },
+  S = {
+    name = "System",
+    b = {
+      "<Cmd>hi Normal ctermbg=none guibg=none<CR>",
+      "Transparent background",
+    },
+    d = { "<cmd>Alpha<CR>", "open Dashboard" },
+    i = { "<Cmd>PackerStatus<Cr>", "Packer status" },
+    s = { "<Cmd>PackerSync<Cr>", "Packer sync" },
+
+    S = { ":<C-u>SaveSession<Cr>", "Save session" },
+    L = { ":<C-u>SearchSession<Cr>", "Load session" },
+    -- h = { "<Cmd>15sp +term<CR>", "New horizontal terminal" },
+    m = {
+      function()
+        require("telescope").extensions.notify.notify()
+      end,
+      "Messages",
+    },
+    t = { "<Cmd>Telescope colorscheme<Cr>", "Color scheme" },
+    y = { "<Cmd>Telescope neoclip<Cr>", "Clipboard manager" },
+    z = {
+      ":e $MYVIMRC | :cd %:p:h <CR>",
+      "Configuration",
+    },
+  },
   t = { name = "Terminal" },
   u = { name = "Update" },
   w = { name = "Workspace" },
+  z = { name = "Fold" },
 }
 
 local visual_mode_mappings = {

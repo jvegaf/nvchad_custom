@@ -30,10 +30,6 @@ return {
       -- 'nvim-telescope/telescope-hop.nvim'
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
       {
-        "nvim-telescope/telescope-arecibo.nvim",
-        rocks = { "openssl", "lua-http-parser" },
-      },
-      {
         "nvim-telescope/telescope-frecency.nvim",
         requires = { "tami5/sql.nvim" },
       },
@@ -181,6 +177,6 @@ return {
     config = function()
       require "custom.plugins.legendary"
     end,
-    requires = { "stevearc/dressing.nvim", "kkharji/sqlite.lua" },
+    requires = { "stevearc/dressing.nvim" },
   },
 }
