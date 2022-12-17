@@ -24,7 +24,7 @@ local function tab_win_closed(winnr)
           else -- else there are more tabs open
             vim.api.nvim_win_close(tab_wins[1], true) -- then close only the tab
           end
-        end)
+       end)
       end
     end
   end
@@ -45,11 +45,8 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   nested = true,
 })
 
-local config_group = vim.api.nvim_create_augroup("MyConfigGroup", {}) -- A global group for all your config autocommands
-
 vim.api.nvim_create_autocmd({ "User" }, {
   pattern = "SessionLoadPost",
-  group = config_group,
   callback = function()
     require("nvim-tree").toggle(false, true)
   end,
