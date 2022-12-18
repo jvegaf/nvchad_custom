@@ -17,10 +17,12 @@ local has = function(x)
 end
 
 local is_win = has "win32"
--- local is_lin = has "linux"
+local is_lin = has "linux"
 
 if is_win then
   require "custom.windows"
 end
 
--- if is_lin then require "custom.linux" end
+if is_lin then
+  require "custom.linux"
+end
