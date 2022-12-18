@@ -115,6 +115,12 @@ return {
     end,
   },
 
+  ["jayp0521/mason-null-ls.nvim"] = {
+    config = function()
+      require "custom.plugins.mason-null-ls"
+    end,
+  },
+
   ["normen/vim-pio"] = {},
 
   ["voldikss/vim-browser-search"] = {},
