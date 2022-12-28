@@ -67,6 +67,7 @@ local options = {
     "ultisnips",
     "gh",
     "arecibo",
+    "notify",
     "frecency",
     "file_browser",
     "neoclip",

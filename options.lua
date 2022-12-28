@@ -1,3 +1,6 @@
+vim.notify = require("notify")
+
+
 local opt = vim.opt
 
 opt.relativenumber = true

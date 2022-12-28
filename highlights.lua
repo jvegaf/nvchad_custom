@@ -11,6 +11,9 @@ M.override = {
   Comment = {
     italic = true,
   },
+  NotifyBackground = {
+    bg = "#000000",
+  }
 }
 
 M.add = {

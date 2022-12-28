@@ -9,7 +9,13 @@ return {
     end,
   },
 
-  ["rcarriga/nvim-notify"] = {},
+  ["rcarriga/nvim-notify"] = {
+    config = function ()
+      require("notify").setup({
+        background_colour = "#000000",
+    })
+    end,
+  },
 
   ["stevearc/dressing.nvim"] = {
     config = function()
@@ -29,17 +35,13 @@ return {
       "cljoly/telescope-repo.nvim",
       -- 'nvim-telescope/telescope-hop.nvim'
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-      {
-        "nvim-telescope/telescope-frecency.nvim",
-        requires = { "tami5/sql.nvim" },
-      },
       "xiyaowong/telescope-emoji.nvim",
     },
-    config = function()
-      require "custom.plugins.telescope"
-    end,
     setup = function()
       require("core.utils").load_mappings "telescope"
+    end,
+    config = function()
+      require "custom.plugins.telescope"
     end,
   },
 

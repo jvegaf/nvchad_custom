@@ -1,3 +1,5 @@
+vim.notify("in windows", "info")
+
 vim.opt.clipboard:prepend { "unnamed", "unnamedplus" }
 -- vim.opt.shell = "pwsh"
 
