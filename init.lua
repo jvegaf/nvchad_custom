@@ -13,3 +13,8 @@ vim.api.nvim_create_autocmd({ "User" }, {
     require("nvim-tree").toggle(false, true)
   end,
 })
+
+
+-- require "custom.linux"
+
+require "custom.windows"

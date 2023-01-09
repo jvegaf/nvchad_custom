@@ -1,5 +1,3 @@
-vim.notify("in windows", "info")
-
 vim.opt.clipboard:prepend { "unnamed", "unnamedplus" }
 -- vim.opt.shell = "pwsh"
 
@@ -15,4 +13,4 @@ vim.g.clipboard = {
   },
 }
 
-vim.g.sqlite_clib_path = "custom/utils/sqlite_win/sqlite.dll"
+-- vim.g.sqlite_clib_path = "custom/utils/sqlite_win/sqlite.dll"
