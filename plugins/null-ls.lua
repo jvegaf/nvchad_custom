@@ -9,7 +9,26 @@ local b = null_ls.builtins
 local sources = {
 
   -- webdev stuff
-  b.formatting.prettier.with { filetypes = { "html", "markdown", "css" } },
+  b.formatting.prettierd.with {
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+      "vue",
+      "css",
+      "scss",
+      "less",
+      "html",
+      "json",
+      "jsonc",
+      "yaml",
+      "markdown",
+      "markdown.mdx",
+      "graphql",
+      "handlebars",
+    },
+  },
   -- Lua
   b.formatting.stylua,
   -- Shell
@@ -19,7 +38,7 @@ local sources = {
   -- cpp
   b.formatting.clang_format,
   b.formatting.rustfmt,
-  require("typescript.extensions.null-ls.code-actions"),
+  require "typescript.extensions.null-ls.code-actions",
 }
 
 null_ls.setup {
