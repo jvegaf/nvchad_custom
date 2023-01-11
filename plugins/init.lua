@@ -10,10 +10,10 @@ return {
   },
 
   ["rcarriga/nvim-notify"] = {
-    config = function ()
-      require("notify").setup({
+    config = function()
+      require("notify").setup {
         background_colour = "#000000",
-    })
+      }
     end,
   },
 
@@ -191,6 +191,25 @@ return {
   ["tzachar/cmp-tabnine"] = {
     after = "nvim-cmp",
     run = "powershell ./install.ps1",
-    requires = "hrsh7th/nvim-cmp"
-  }
+    requires = "hrsh7th/nvim-cmp",
+  },
+
+  ["stevearc/aerial.nvim"] = {
+    config = function()
+      require "custom.plugins.aerial"
+    end,
+  },
+
+  -- themes
+  ["navarasu/onedark.nvim"] = {
+    config = function()
+      require "custom.plugins.onedark"
+    end,
+  },
+
+  ["EdenEast/nightfox.nvim"] = {
+    config = function()
+      require "custom.plugins.nightfox"
+    end,
+  },
 }

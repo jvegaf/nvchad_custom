@@ -43,7 +43,7 @@ local normal_mode_mappings = {
     o = { "<Cmd>Telescope oldfiles<Cr>", "Old files" },
     s = { "<Cmd>Telescope symbols<Cr>", "Symbols" },
     t = { "<Cmd>Telescope<CR>", "Telescope" },
-    l = { "<Cmd>e!<CR>", "Reload file" },
+    r = { "<Cmd>e!<CR>", "Reload file" },
   },
   g = { name = "Git" },
   l = {
@@ -120,7 +120,7 @@ local normal_mode_mappings = {
       "Configuration",
     },
   },
-  t = { name = "Terminal" },
+  t = { name = "Telescope" },
   u = { name = "Update" },
   w = { name = "Workspace" },
   z = { name = "Fold" },

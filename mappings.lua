@@ -3,6 +3,7 @@ local M = {}
 M.general = {
   n = {
     ["<A-1>"] = { "<cmd>NvimTreeToggle<cr>", "Toogle File Browser" },
+    ["<A-2>"] = { "<cmd>AerialToggle! float<cr>", "Toogle CodeSymbols Browser" },
     ["<A-h>"] = { ":MoveHChar(-1)<CR>", "Move Char Left" },
     ["<A-j>"] = { ":MoveLine(1)<CR>", "move line down" },
     ["<A-k>"] = { ":MoveLine(-1)<CR>", "move line up" },
@@ -22,7 +23,7 @@ M.general = {
     ["ga"] = { "<Plug>EasyAlign", "EasyAlign" },
   },
   v = {
-    ["s"] = { ":'<,'>BrowserSearch<cr>", "Browser Search" },
+    ["<A-s>"] = { ":'<,'>BrowserSearch<cr>", "Browser Search" },
     ["<A-h>"] = { ":MoveHBlock(-1)<CR>", "Move Char Left" },
     ["<A-l>"] = { ":MoveHBlock(1)<CR>", "Move Char Left" },
     ["<A-j>"] = { ":MoveBlock(1)<CR>", "move block down" },
@@ -40,21 +41,21 @@ M.nvterm = {
 
   t = {
     -- toggle in terminal mode
-    ["<leader>tf"] = {
+    ["<A-3>"] = {
       function()
         require("nvterm.terminal").toggle "float"
       end,
       "toggle floating term",
     },
 
-    ["<leader>th"] = {
+    ["<A-4>"] = {
       function()
         require("nvterm.terminal").toggle "horizontal"
       end,
       "toggle horizontal term",
     },
 
-    ["<leader>tv"] = {
+    ["<A-5>"] = {
       function()
         require("nvterm.terminal").toggle "vertical"
       end,
@@ -64,21 +65,21 @@ M.nvterm = {
 
   n = {
     -- toggle in normal mode
-    ["<leader>tf"] = {
+    ["<A-3>"] = {
       function()
         require("nvterm.terminal").toggle "float"
       end,
       "toggle floating term",
     },
 
-    ["<leader>th"] = {
+    ["<A-4>"] = {
       function()
         require("nvterm.terminal").toggle "horizontal"
       end,
       "toggle horizontal term",
     },
 
-    ["<leader>tv"] = {
+    ["<A-5>"] = {
       function()
         require("nvterm.terminal").toggle "vertical"
       end,
