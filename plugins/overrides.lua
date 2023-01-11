@@ -9,6 +9,11 @@ M.treesitter = {
     "typescript",
     "c",
     "cpp",
+    "arduino",
+    "java",
+    "json",
+    "javascript",
+    "yaml"
   },
 }
 
