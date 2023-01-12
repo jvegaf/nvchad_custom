@@ -51,7 +51,7 @@ return {
     end,
   },
 
-  ["fedepujol/move.nvim"] = {},
+  ["jvegaf/move.nvim"] = {},
 
   ["ThePrimeagen/refactoring.nvim"] = {
     requires = {
@@ -195,9 +195,16 @@ return {
   },
 
   ["stevearc/aerial.nvim"] = {
+    cmd = "AerialToggle",
+    after = "nvim-lspconfig",
     config = function()
       require "custom.plugins.aerial"
     end,
+  },
+
+  ["weilbith/nvim-code-action-menu"] = {
+    cmd = "CodeActionMenu",
+    after = "nvim-lspconfig",
   },
 
   -- themes

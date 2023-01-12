@@ -1,5 +1,7 @@
 require "custom.options"
 
+vim.g.luasnippets_path = "custom.snippets"
+
 vim.api.nvim_create_autocmd("BufWritePre", {
   callback = function()
     vim.lsp.buf.format()
@@ -14,7 +16,6 @@ vim.api.nvim_create_autocmd({ "User" }, {
   end,
 })
 
+-- require "custom.linux"
 
-require "custom.linux"
-
--- require "custom.windows"
+require "custom.windows"

@@ -32,6 +32,10 @@ local normal_mode_mappings = {
     p = { "<Cmd>bp<Cr>", "Previous buffer" },
     f = { "<Cmd>bd!<Cr>", "Force delete current buffer" },
   },
+  c = {
+    name = "Code",
+    s = { "<Cmd>lua require('luasnip.loaders').edit_snippet_files(opts: nil)<CR>", "Snippets Editor" },
+  },
   f = {
     name = "File",
     b = { "<Cmd>Telescope buffers<Cr>", "Search buffers" },

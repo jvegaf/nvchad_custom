@@ -25,7 +25,12 @@ local sources = {
       "handlebars",
     },
   },
+
+  b.code_actions.eslint_d,
+  b.diagnostics.eslint_d,
+
   -- Lua
+  b.diagnostics.luacheck,
   b.formatting.stylua,
   -- Shell
   b.formatting.shfmt,
@@ -34,6 +39,7 @@ local sources = {
   -- cpp
   b.formatting.clang_format,
   b.formatting.rustfmt,
+
   require "typescript.extensions.null-ls.code-actions",
 }
 
