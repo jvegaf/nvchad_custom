@@ -15,6 +15,6 @@ vim.api.nvim_create_autocmd({ "User" }, {
 })
 
 
--- require "custom.linux"
+require "custom.linux"
 
-require "custom.windows"
+-- require "custom.windows"

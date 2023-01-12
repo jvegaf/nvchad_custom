@@ -8,7 +8,7 @@ M.plugins = require "custom.plugins"
 
 M.ui = {
   theme_toggle = { "onedark", "one_light", "gruvbox", "nightfox" },
-  theme = "nightfox",
+  theme = "tokyonight",
   changed_themes = themes,
   hl_override = highlights.override,
   hl_add = highlights.add,
