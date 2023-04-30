@@ -1,91 +1,40 @@
+---@type MappingsTable
 local M = {}
 
-M.general = {
+M.disabled = {
   n = {
-    ["<A-1>"] = { "<cmd>NvimTreeToggle<cr>", "Toogle File Browser" },
-    ["<A-2>"] = { "<cmd>AerialToggle! float<cr>", "Toogle CodeSymbols Browser" },
-    ["<A-h>"] = { ":MoveHChar(-1)<CR>", "Move Char Left" },
-    ["<A-j>"] = { ":MoveLine(1)<CR>", "move line down" },
-    ["<A-k>"] = { ":MoveLine(-1)<CR>", "move line up" },
-    ["<A-l>"] = { ":MoveHChar(1)<CR>", "Move Char Right" },
-    ["<A-Down>"] = { ":MoveLine(1)<CR>", "move line down" },
-    ["<A-Up>"] = { ":MoveLine(-1)<CR>", "move line up" }, -- close buffer + hide terminal buffer
-    ["<S-q>"] = {
-      function()
-        require("nvchad_ui.tabufline").close_buffer()
-      end,
-      "close buffer",
-    },
-    ["<leader>gg"] = { "<cmd>LazyGit<cr>", "LazyGit" },
-    ["<leader>as"] = { "<cmd>PackerStatus<cr>", "Packer Status" },
-    ["<leader>ai"] = { "<cmd>PackerInstall<cr>", "Packer Install" },
-    ["<leader>au"] = { "<cmd>PackerSync<cr>", "Packer Sync" },
-    ["ga"] = { "<Plug>EasyAlign", "EasyAlign" },
-  },
-  v = {
-    ["<A-s>"] = { ":'<,'>BrowserSearch<cr>", "Browser Search" },
-    ["<A-h>"] = { ":MoveHBlock(-1)<CR>", "Move Char Left" },
-    ["<A-l>"] = { ":MoveHBlock(1)<CR>", "Move Char Left" },
-    ["<A-j>"] = { ":MoveBlock(1)<CR>", "move block down" },
-    ["<A-k>"] = { ":MoveBlock(-1)<CR>", "move block up" },
-    ["<A-Down>"] = { "<cmd> :m '>+1<CR>gv=gv", "move line down" },
-    ["<A-Up>"] = { "<cmd> :m '<-2<CR>gv=gv", "move line up" },
-  },
-  x = {
-    ["ga"] = { "<Plug>EasyAlign", "EasyAlign" },
+     ["<leader>fm"] = "",
   },
 }
 
-M.nvterm = {
-  plugin = true,
-
-  t = {
-    -- toggle in terminal mode
-    ["<A-3>"] = {
-      function()
-        require("nvterm.terminal").toggle "float"
-      end,
-      "toggle floating term",
-    },
-
-    ["<A-4>"] = {
-      function()
-        require("nvterm.terminal").toggle "horizontal"
-      end,
-      "toggle horizontal term",
-    },
-
-    ["<A-5>"] = {
-      function()
-        require("nvterm.terminal").toggle "vertical"
-      end,
-      "toggle vertical term",
-    },
-  },
-
+M.general = {
   n = {
-    -- toggle in normal mode
-    ["<A-3>"] = {
-      function()
-        require("nvterm.terminal").toggle "float"
-      end,
-      "toggle floating term",
-    },
-
-    ["<A-4>"] = {
-      function()
-        require("nvterm.terminal").toggle "horizontal"
-      end,
-      "toggle horizontal term",
-    },
-
-    ["<A-5>"] = {
-      function()
-        require("nvterm.terminal").toggle "vertical"
-      end,
-      "toggle vertical term",
-    },
+    ["vv"] = { "V", "enter visual mode", opts = { nowait = true } },
+    ["x"] = { '"_x', "delete character", opts = { nowait = true } },
+    ["<C-a>"] = { "gg<S-v>G", "Select all", opts = { nowait = true } },
+    [";"] = { ":", "enter command mode", opts = { nowait = true } },
+    ["<leader>o"] = { "o<Esc>", "Insert line after", opts = { nowait = true } },
+    ["<leader>p"] = { "o<Esc>", "Insert line after", opts = { nowait = true } },
+    ["<leader>oo"] = { "O<Esc>", "Insert line before", opts = { nowait = true } },
+    ["<leader>po"] = { "O<Esc>", "Insert line before", opts = { nowait = true } },
+    ["<leader>lf"] = {
+        function()
+          vim.lsp.buf.format { async = true }
+        end,
+        "lsp formatting",
+      },
+    ["<A-Up>"] = { ":m .-2<CR>==", "Move code up", opts = { nowait = true } },
+    ["<A-Down>"] = { ":m .+1<CR>==", "Move code down", opts = { nowait = true } },
   },
+  v = {
+    ["<A-Down>"] = { ":m '>+1<CR>gv=gv", "Move code down", opts = { nowait = true } },
+    ["<A-Up>"] = { ":m '<-2<CR>gv=gv", "Move code up", opts = { nowait = true } },
+    ["p"] = { '"_dP', "dont yank in visual paste", opts = { nowait = true } },
+  },
+  i = {
+    ["<A-Down>"] = { "<Esc>:m .+1<CR>==gi", "Move code down", opts = { nowait = true } },
+    ["<A-Up>"] = { "<Esc>:m .-2<CR>==gi", "Move code up", opts = { nowait = true } },
+  }
 }
 
 -- more keybinds!
