@@ -30,7 +30,6 @@ M.general = {
   i = {
     ["<A-Down>"] = { "<Esc>:m .+1<CR>==gi", "Move code down", opts = { nowait = true } },
     ["<A-Up>"] = { "<Esc>:m .-2<CR>==gi", "Move code up", opts = { nowait = true } },
-    [""] = { "<Esc>:m .-2<CR>==gi", "Move code up", opts = { nowait = true } },
   }
 }
 
