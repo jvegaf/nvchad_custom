@@ -13,10 +13,6 @@ M.general = {
     ["x"] = { '"_x', "delete character", opts = { nowait = true } },
     ["<C-a>"] = { "gg<S-v>G", "Select all", opts = { nowait = true } },
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
-    ["<leader>o"] = { "o<Esc>", "Insert line after", opts = { nowait = true } },
-    ["<leader>p"] = { "o<Esc>", "Insert line after", opts = { nowait = true } },
-    ["<leader>oo"] = { "O<Esc>", "Insert line before", opts = { nowait = true } },
-    ["<leader>po"] = { "O<Esc>", "Insert line before", opts = { nowait = true } },
     ["<leader>lf"] = {
         function()
           vim.lsp.buf.format { async = true }
@@ -34,6 +30,7 @@ M.general = {
   i = {
     ["<A-Down>"] = { "<Esc>:m .+1<CR>==gi", "Move code down", opts = { nowait = true } },
     ["<A-Up>"] = { "<Esc>:m .-2<CR>==gi", "Move code up", opts = { nowait = true } },
+    [""] = { "<Esc>:m .-2<CR>==gi", "Move code up", opts = { nowait = true } },
   }
 }
 
