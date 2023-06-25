@@ -39,13 +39,6 @@ local plugins = {
   },
 
   -- Install a plugin
-  {
-    "max397574/better-escape.nvim",
-    event = "InsertEnter",
-    config = function()
-      require("better_escape").setup()
-    end,
-  },
 
   -- To make a plugin not be loaded
   -- {
@@ -59,7 +52,7 @@ local plugins = {
     -- stylua: ignore
     config = function()
       vim.g.codeium_disable_bindings = 1
-      vim.keymap.set("i", "<A-d>", function() return vim.fn["codeium#Accept"]() end, { expr = true })
+      vim.keymap.set("i", "<A-l>", function() return vim.fn["codeium#Accept"]() end, { expr = true })
       vim.keymap.set("i", "<A-.>", function() return vim.fn["codeium#CycleCompletions"](1) end, { expr = true })
       vim.keymap.set("i", "<A-,>", function() return vim.fn["codeium#CycleCompletions"](-1) end, { expr = true })
       vim.keymap.set("i", "<A-q>", function() return vim.fn["codeium#Clear"]() end, { expr = true })
@@ -98,10 +91,10 @@ local plugins = {
     cmd = { "TroubleToggle", "Trouble" },
     opts = { use_diagnostic_signs = true },
     keys = {
-      { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>",  desc = "Document Diagnostics (Trouble)" },
+      { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
       { "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
-      { "<leader>xL", "<cmd>TroubleToggle loclist<cr>",               desc = "Location List (Trouble)" },
-      { "<leader>xQ", "<cmd>TroubleToggle quickfix<cr>",              desc = "Quickfix List (Trouble)" },
+      { "<leader>xL", "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
+      { "<leader>xQ", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
       {
         "[q",
         function()
@@ -131,7 +124,7 @@ local plugins = {
     dependencies = "kevinhwang91/promise-async",
     lazy = false,
     config = function()
-      require"custom.configs.nvim-ufo"
+      require "custom.configs.nvim-ufo"
     end,
   },
   {
@@ -144,8 +137,57 @@ local plugins = {
     cmd = "UndotreeToggle",
     keymaps = {
       { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Undotree Toggle" },
-    }
-  }
+    },
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "hrsh7th/cmp-emoji",
+    },
+    opts = function()
+      local M = require "plugins.configs.cmp"
+      M.completion.completeopt = "menu,menuone,noselect"
+      M.mapping["<CR>"] = cmp.mapping.confirm {
+        behavior = cmp.ConfirmBehavior.Insert,
+        select = false,
+      }
+      table.insert(M.sources, { name = "emoji" })
+      return M
+    end,
+  },
+  {
+    "abecodes/tabout.nvim",
+    opts = {
+      tabkey = "<tab>", -- key to trigger tabout, set to an empty string to disable
+      backwards_tabkey = "<s-tab>", -- key to trigger backwards tabout, set to an empty string to disable
+      act_as_tab = true, -- shift content if tab out is not possible
+      act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
+      default_tab = "<C-t>", -- shift default action (only at the beginning of a line, otherwise <TAB> is used)
+      default_shift_tab = "<C-d>", -- reverse shift default action,
+      enable_backwards = false, -- well ...
+      completion = true, -- if the tabkey is used in a completion pum
+      tabouts = {
+        { open = "'", close = "'" },
+        { open = '"', close = '"' },
+        { open = "`", close = "`" },
+        { open = "(", close = ")" },
+        { open = "[", close = "]" },
+        { open = "{", close = "}" },
+      },
+      ignore_beginning = false, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
+      exclude = { "markdown" }, -- tabout will ignore these filetypes
+    },
+    {
+      "kdheepak/lazygit.nvim",
+      -- optional for floating window border decoration
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+        },
+      keymaps = {
+        { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+      },
+    },
+  },
 }
 
 return plugins

@@ -15,7 +15,6 @@ local options = {
   foldenable = true,
   foldlevel = 99,
   foldlevelstart = 99,
-  guifont = "ComicCodeLigatures NF:h11",
   hlsearch = true, -- highlight all matches on previous search pattern
   ignorecase = true, -- ignore case in search patterns
   incsearch = false,

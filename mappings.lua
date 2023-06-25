@@ -21,6 +21,9 @@ M.general = {
       },
     ["<A-Up>"] = { ":m .-2<CR>==", "Move code up", opts = { nowait = true } },
     ["<A-Down>"] = { ":m .+1<CR>==", "Move code down", opts = { nowait = true } },
+    ["<A-w>"] = { "<cmd>write<CR>", "Write Buffer", opts = { nowait = true } },
+    ["<A-q>"] = { "<cmd>bdelete<CR>", "close Buffer", opts = { nowait = true } },
+    ["zz"] = { "<cmd>wq<CR>", "write and close window", opts = { nowait = true } },
   },
   v = {
     ["<A-Down>"] = { ":m '>+1<CR>gv=gv", "Move code down", opts = { nowait = true } },
@@ -30,6 +33,10 @@ M.general = {
   i = {
     ["<A-Down>"] = { "<Esc>:m .+1<CR>==gi", "Move code down", opts = { nowait = true } },
     ["<A-Up>"] = { "<Esc>:m .-2<CR>==gi", "Move code up", opts = { nowait = true } },
+    ["jj"] = { "<Esc>", "change to normal mode", opts = { nowait = true } },
+  },
+  x = {
+    ["p"] = { '"_dP', "dont yank in visual paste", opts = { nowait = true } },
   }
 }
 
