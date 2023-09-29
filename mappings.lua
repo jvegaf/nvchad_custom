@@ -13,7 +13,7 @@ M.general = {
     ["x"] = { '"_x', "delete character", opts = { nowait = true } },
     ["<C-a>"] = { "gg<S-v>G", "Select all", opts = { nowait = true } },
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
-    ["<leader>lf"] = {
+    ["gq"] = {
         function()
           vim.lsp.buf.format { async = true }
         end,
@@ -24,6 +24,7 @@ M.general = {
     ["<A-w>"] = { "<cmd>write<CR>", "Write Buffer", opts = { nowait = true } },
     ["<A-q>"] = { "<cmd>bdelete<CR>", "close Buffer", opts = { nowait = true } },
     ["zz"] = { "<cmd>wq<CR>", "write and close window", opts = { nowait = true } },
+    ["<ESC>"] = { ":nohlsearch<Bar>:echo<CR>", "Clear search", opts = { nowait = true } },
   },
   v = {
     ["<A-Down>"] = { ":m '>+1<CR>gv=gv", "Move code down", opts = { nowait = true } },
