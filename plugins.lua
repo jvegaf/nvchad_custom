@@ -202,7 +202,7 @@ local plugins = {
   -- },
   {
     "Exafunction/codeium.vim",
-    enabled = true,
+    enabled = false,
     event = "InsertEnter",
     -- stylua: ignore
     config = function()
@@ -214,7 +214,26 @@ local plugins = {
       vim.keymap.set("i", "<A-s>", function() return vim.fn["codeium#Complete"]() end, { expr = true })
     end,
   },
+  {
+    "LunarVim/bigfile.nvim",
+  },
+  {
 
+    "ethanholz/nvim-lastplace",
+  },
+  {
+    "sontungexpt/url-open",
+    cmd = "URLOpenUnderCursor",
+    config = function()
+      local status_ok, url_open = pcall(require, "url-open")
+      if not status_ok then
+        return
+      end
+      url_open.setup {}
+
+      vim.keymap.set("n", "gx", "<esc>:URLOpenUnderCursor<cr>")
+    end,
+  },
   {
     "Wansmer/treesj",
     keys = { { "<leader>m", "<CMD>TSJToggle<CR>", desc = "Toggle Split Join" } },
@@ -294,19 +313,37 @@ local plugins = {
       { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Undotree Toggle" },
     },
   },
+
+  -- cmp
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
       "hrsh7th/cmp-emoji",
+      {
+        "zbirenbaum/copilot-cmp",
+        config = function()
+          require("copilot_cmp").setup()
+        end,
+      },
     },
     opts = function()
       local M = require "plugins.configs.cmp"
+      local cmp = M.cmp
       M.completion.completeopt = "menu,menuone,noselect"
       M.mapping["<CR>"] = cmp.mapping.confirm {
         behavior = cmp.ConfirmBehavior.Insert,
         select = false,
       }
-      table.insert(M.sources, { name = "emoji" })
+      -- table.insert(M.sources, { name = "emoji" })
+      M.sources = {
+        { name = "nvim_lsp", group_index = 2 },
+        { name = "copilot", group_index = 2 },
+        { name = "luasnip", group_index = 2 },
+        { name = "buffer", group_index = 2 },
+        { name = "nvim_lua", group_index = 2 },
+        { name = "emoji", group_index = 2 },
+        { name = "path", group_index = 2 },
+      }
       return M
     end,
   },
@@ -420,7 +457,13 @@ local plugins = {
         end,
         desc = "Stop",
       },
-      { "<leader>td", function() require("neotest").run.run({strategy = "dap"}) end, desc = "Debug Nearest" },
+      {
+        "<leader>td",
+        function()
+          require("neotest").run.run { strategy = "dap" }
+        end,
+        desc = "Debug Nearest",
+      },
     },
   },
 }
