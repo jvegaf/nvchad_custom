@@ -71,24 +71,6 @@ vim.api.nvim_create_autocmd("InsertLeave", {
   command = "set nopaste",
 })
 
--- Helpful related items:
---   1. :center, :left, :right
---   2. gw{motion} - Put cursor back after formatting motion.
---
--- -- TODO: w, {v, b, l}
--- vim.opt.formatoptions = vim.opt.formatoptions
---     - "a" -- Auto formatting is BAD.
---     - "t" -- Don't auto format my code. I got linters for that.
---     + "c" -- In general, I like it when comments respect textwidth
---     + "q" -- Allow formatting comments w/ gq
---     - "o" -- O and o, don't continue comments
---     + "r" -- But do continue when pressing enter.
---     + "n" -- Indent past the formatlistpat, not underneath it.
---     + "j" -- Auto-remove comments if possible.
-
--- Add asterisks in block comments
-vim.opt.formatoptions:append({ "r" })
-
 vim.wo.signcolumn = "yes"
 
 for k, v in pairs(options) do
@@ -97,7 +79,6 @@ end
 
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
-vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
 
 vim.filetype.add({
   extension = {
@@ -107,3 +88,4 @@ vim.filetype.add({
 --
 vim.g.mapleader = ","
 -- vim.g.maplocalleader = ","
+vim.g.vscode_snippets_path = vim.fn.stdpath "config" .. "/lua/custom/snippets"

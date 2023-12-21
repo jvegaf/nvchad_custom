@@ -6,15 +6,25 @@ local plugins = {
   -- Override plugin definition options
 
   {
+    "mfussenegger/nvim-lint",
+    event = "VeryLazy",
+    config = function()
+      require "custom.configs.nvim-lint"
+    end,
+  },
+
+  {
+    "mhartington/formatter.nvim",
+    event = "VeryLazy",
+    opts = function()
+      return require "custom.configs.formatter"
+    end,
+  },
+
+  {
     "neovim/nvim-lspconfig",
     dependencies = {
-      -- format & linting
-      {
-        "jose-elias-alvarez/null-ls.nvim",
-        config = function()
-          require "custom.configs.null-ls"
-        end,
-      },
+      "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
       require "plugins.configs.lspconfig"
@@ -22,159 +32,18 @@ local plugins = {
     end, -- Override to setup mason-lspconfig
   },
 
+  -- jdtls
   {
-
     "mfussenegger/nvim-jdtls",
     ft = { "java" },
     dependencies = { "williamboman/mason-lspconfig.nvim" },
-    opts = function(_, opts)
-      -- use this function notation to build some variables
-      local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle", ".project" }
-      local root_dir = require("jdtls.setup").find_root(root_markers)
-      -- calculate workspace dir
-      local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
-      local workspace_dir = vim.fn.stdpath "data" .. "/site/java/workspace-root/" .. project_name
-      os.execute("mkdir " .. workspace_dir)
-
-      local configs = require "plugins.configs.lspconfig"
-      local on_attach = configs.on_attach
-      -- get the current OS
-      local os
-      if vim.fn.has "mac" == 1 then
-        os = "mac"
-      elseif vim.fn.has "unix" == 1 then
-        os = "linux"
-      elseif vim.fn.has "win32" == 1 then
-        os = "win"
-      end
-
-      local defaults = {
-        cmd = {
-          "java",
-          "-Declipse.application=org.eclipse.jdt.ls.core.id1",
-          "-Dosgi.bundles.defaultStartLevel=4",
-          "-Declipse.product=org.eclipse.jdt.ls.core.product",
-          "-Dlog.protocol=true",
-          "-Dlog.level=ALL",
-          "-javaagent:" .. vim.fn.expand "$MASON/share/jdtls/lombok.jar",
-          "-Xms1g",
-          "--add-modules=ALL-SYSTEM",
-          "--add-opens",
-          "java.base/java.util=ALL-UNNAMED",
-          "--add-opens",
-          "java.base/java.lang=ALL-UNNAMED",
-          "-jar",
-          vim.fn.expand "$MASON/share/jdtls/plugins/org.eclipse.equinox.launcher.jar",
-          "-configuration",
-          vim.fn.expand "$MASON/share/jdtls/config",
-          "-data",
-          workspace_dir,
-        },
-        root_dir = root_dir,
-        settings = {
-          java = {
-            eclipse = {
-              downloadSources = true,
-            },
-            configuration = {
-              updateBuildConfiguration = "interactive",
-            },
-            maven = {
-              downloadSources = true,
-            },
-
-            implementationsCodeLens = {
-              enabled = true,
-            },
-            referencesCodeLens = {
-              enabled = true,
-            },
-          },
-          signatureHelp = {
-
-            enabled = true,
-          },
-          completion = {
-            favoriteStaticMembers = {
-              "org.hamcrest.MatcherAssert.assertThat",
-              "org.hamcrest.Matchers.*",
-              "org.hamcrest.CoreMatchers.*",
-              "org.junit.jupiter.api.Assertions.*",
-              "java.util.Objects.requireNonNull",
-              "java.util.Objects.requireNonNullElse",
-              "org.mockito.Mockito.*",
-            },
-          },
-          sources = {
-            organizeImports = {
-              starThreshold = 9999,
-              staticStarThreshold = 9999,
-            },
-          },
-        },
-        init_options = {
-          bundles = {
-            vim.fn.expand "$MASON/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar",
-            -- unpack remaining bundles
-            (table.unpack or unpack)(vim.split(vim.fn.glob "$MASON/share/java-test/*.jar", "\n", {})),
-          },
-        },
-        handlers = {
-          ["$/progress"] = function()
-            -- disable progress updates.
-          end,
-        },
-        filetypes = { "java" },
-        on_attach = function(client, bufnr)
-          require("jdtls").setup_dap { hotcodereplace = "auto" }
-          on_attach(client, bufnr)
-        end,
-      }
-
-      -- TODO: add overwrite for on_attach
-
-      -- ensure that table is valid
-      if not opts then
-        opts = {}
-      end
-
-      -- extend the current table with the defaults keeping options in the user opts
-      -- this allows users to pass opts through an opts table in community.lua
-      opts = vim.tbl_deep_extend("keep", opts, defaults)
-
-      -- send opts to config
-      return opts
+    config = function()
+      require "custom.configs.jdtls"
     end,
-    config = function(_, opts)
-      -- setup autocmd on filetype detect java
-      vim.api.nvim_create_autocmd("Filetype", {
-        pattern = "java", -- autocmd to start jdtls
-        callback = function()
-          if opts.root_dir and opts.root_dir ~= "" then
-            require("jdtls").start_or_attach(opts)
-            -- require('jdtls.dap').setup_dap_main_class_configs()
-          else
-            require("astronvim.utils").notify(
-              "jdtls: root_dir not found. Please specify a root marker",
-              vim.log.levels.ERROR
-            )
-          end
-        end,
-      })
-      -- create autocmd to load main class configs on LspAttach.
-      -- This ensures that the LSP is fully attached.
-      -- See https://github.com/mfussenegger/nvim-jdtls#nvim-dap-configuration
-      vim.api.nvim_create_autocmd("LspAttach", {
-        pattern = "*.java",
-        callback = function(args)
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          -- ensure that only the jdtls client is activated
-          if client.name == "jdtls" then
-            require("jdtls.dap").setup_dap_main_class_configs()
-          end
-        end,
-      })
-    end,
+  },
+  {
+    "simaxme/java.nvim",
+    ft = { "java" },
   },
 
   -- override plugin configs
@@ -193,13 +62,6 @@ local plugins = {
     opts = overrides.nvimtree,
   },
 
-  -- Install a plugin
-
-  -- To make a plugin not be loaded
-  -- {
-  --   "NvChad/nvim-colorizer.lua",
-  --   enabled = false
-  -- },
   {
     "Exafunction/codeium.vim",
     enabled = false,
@@ -260,6 +122,8 @@ local plugins = {
       vim.g.VM_leader = ";"
     end,
   },
+
+  -- trouble
   {
     "folke/trouble.nvim",
     cmd = { "TroubleToggle", "Trouble" },
@@ -293,6 +157,7 @@ local plugins = {
       },
     },
   },
+
   {
     "kevinhwang91/nvim-ufo",
     dependencies = "kevinhwang91/promise-async",
@@ -314,73 +179,35 @@ local plugins = {
     },
   },
 
-  -- cmp
+  -- copilot
+  {
+    "zbirenbaum/copilot.lua",
+    event = "InsertEnter",
+    opts = overrides.copilot,
+  },
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
-      "hrsh7th/cmp-emoji",
       {
         "zbirenbaum/copilot-cmp",
         config = function()
           require("copilot_cmp").setup()
         end,
       },
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-calc",
+      "hrsh7th/cmp-cmdline",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
+      "hrsh7th/cmp-nvim-lua",
+      "hrsh7th/cmp-path",
+      "onsails/lspkind-nvim",
+      "hrsh7th/cmp-emoji",
+      "hrsh7th/cmp-git",
     },
-    opts = function()
-      local M = require "plugins.configs.cmp"
-      local cmp = M.cmp
-      M.completion.completeopt = "menu,menuone,noselect"
-      M.mapping["<CR>"] = cmp.mapping.confirm {
-        behavior = cmp.ConfirmBehavior.Insert,
-        select = false,
-      }
-      -- table.insert(M.sources, { name = "emoji" })
-      M.sources = {
-        { name = "nvim_lsp", group_index = 2 },
-        { name = "copilot", group_index = 2 },
-        { name = "luasnip", group_index = 2 },
-        { name = "buffer", group_index = 2 },
-        { name = "nvim_lua", group_index = 2 },
-        { name = "emoji", group_index = 2 },
-        { name = "path", group_index = 2 },
-      }
-      return M
-    end,
+    opts = overrides.cmp,
   },
-  {
-    "abecodes/tabout.nvim",
-    opts = {
-      tabkey = "<tab>", -- key to trigger tabout, set to an empty string to disable
-      backwards_tabkey = "<s-tab>", -- key to trigger backwards tabout, set to an empty string to disable
-      act_as_tab = true, -- shift content if tab out is not possible
-      act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
-      default_tab = "<C-t>", -- shift default action (only at the beginning of a line, otherwise <TAB> is used)
-      default_shift_tab = "<C-d>", -- reverse shift default action,
-      enable_backwards = false, -- well ...
-      completion = true, -- if the tabkey is used in a completion pum
-      tabouts = {
-        { open = "'", close = "'" },
-        { open = '"', close = '"' },
-        { open = "`", close = "`" },
-        { open = "(", close = ")" },
-        { open = "[", close = "]" },
-        { open = "{", close = "}" },
-      },
-      ignore_beginning = false, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
-      exclude = { "markdown" }, -- tabout will ignore these filetypes
-    },
-    {
-      "kdheepak/lazygit.nvim",
-      event = "VeryLazy",
-      -- optional for floating window border decoration
-      dependencies = {
-        "nvim-lua/plenary.nvim",
-      },
-      keymaps = {
-        { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
-      },
-    },
-  },
+
   {
     "mfussenegger/nvim-dap",
     dependencies = {

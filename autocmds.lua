@@ -1,21 +1,39 @@
 local augroup = vim.api.nvim_create_augroup
-local autocmds = vim.api.nvim_create_autocmd
-
+local autocmd = vim.api.nvim_create_autocmd
 
 augroup("discontinue_comments", { clear = true })
 
-autocmds({ "FileType" }, {
-  pattern = { "*" },
+augroup("general", { clear = true })
+augroup("YankHighlight", { clear = true })
+
+autocmd("TextYankPost", {
   callback = function()
-    vim.opt.formatoptions = vim.opt.formatoptions - "o"
+    vim.highlight.on_yank()
   end,
-  group = "discontinue_comments",
-  desc = "Dont't continue comments with o/O",
+  group = "YankHighlight",
+  pattern = "*",
 })
+
+autocmd("BufEnter", {
+  callback = function()
+    vim.opt.formatoptions:remove { "c", "r", "o" }
+  end,
+  group = "general",
+  desc = "Disable New Line Comment",
+})
+
+-- autocmd({ "FileType" }, {
+--   pattern = { "*" },
+--   callback = function()
+--     vim.opt.formatoptions = vim.opt.formatoptions - "o"
+--   end,
+--   group = "discontinue_comments",
+--   desc = "Dont't continue comments with o/O",
+-- })
 
 augroup("lsp_attach_auto_diag", { clear = true })
 
-autocmds("LspAttach", {
+autocmd("LspAttach", {
   group = "lsp_attach_auto_diag",
   callback = function(args)
     -- the buffer where the lsp attached
@@ -23,7 +41,7 @@ autocmds("LspAttach", {
     local buffer = args.buf
 
     -- create the autocmd to show diagnostics
-    autocmds("CursorHold", {
+    autocmd("CursorHold", {
       group = "lsp_attach_auto_diag",
       buffer = buffer,
       callback = function()
@@ -42,8 +60,32 @@ autocmds("LspAttach", {
 })
 
 -- Auto resize panes when resizing nvim window
-autocmds("VimResized", {
+autocmd("VimResized", {
   pattern = "*",
   command = "tabdo wincmd =",
 })
 
+-- nvim-tree
+
+local function open_nvim_tree(data)
+  -- buffer is a directory
+  local directory = vim.fn.isdirectory(data.file) == 1
+
+  if not directory then
+    return
+  end
+
+  -- create a new, empty buffer
+  vim.cmd.enew()
+
+  -- wipe the directory buffer
+  vim.cmd.bw(data.buf)
+
+  -- change to the directory
+  vim.cmd.cd(data.file)
+
+  -- open the tree
+  require("nvim-tree.api").tree.open()
+end
+
+autocmd({ "VimEnter" }, { callback = open_nvim_tree })
