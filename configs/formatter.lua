@@ -21,6 +21,9 @@ local M = {
     xml = {
       require("formatter.filetypes.xml").lemminx
     },
+    rust = {
+      require("formatter.filetypes.rust").rustfmt
+    },
     ["*"] = {
       require("formatter.filetypes.any").remove_trailing_whitespace
     }

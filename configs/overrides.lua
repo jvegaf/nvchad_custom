@@ -18,6 +18,8 @@ M.treesitter = {
     "c",
     "markdown",
     "markdown_inline",
+    "cpp",
+    "rust"
   },
   indent = {
     enable = true,
@@ -58,6 +60,9 @@ M.mason = {
     "java-debug-adapter",
     "java-test",
     "checkstyle",
+
+    "codelldb",
+    "rust_analyzer",
 
   },
 }
@@ -172,6 +177,7 @@ M.cmp = {
     { name = "nvim_lsp", group_index = 2 },
     { name = "copilot",  group_index = 2 },
     { name = "luasnip",  group_index = 2 },
+    { name = "crates",   group_index = 2 },
     { name = "buffer",   group_index = 2 },
     { name = "nvim_lua", group_index = 2 },
     { name = "emoji",    group_index = 2 },

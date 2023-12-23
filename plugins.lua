@@ -178,7 +178,10 @@ local plugins = {
       { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Undotree Toggle" },
     },
   },
-
+  {
+    "simrat39/rust-tools.nvim",
+    ft = { "rust" },
+  },
   -- copilot
   {
     "zbirenbaum/copilot.lua",
@@ -192,6 +195,13 @@ local plugins = {
         "zbirenbaum/copilot-cmp",
         config = function()
           require("copilot_cmp").setup()
+        end,
+      },
+      {
+        "saecki/crates.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+          require("crates").setup()
         end,
       },
       "hrsh7th/cmp-buffer",

@@ -23,5 +23,15 @@ lspconfig.tsserver.setup {
       -- importModuleSpecifierPreference = "relative",
       disableSuggestions = true,
     },
-  }
+  },
+}
+
+lspconfig.eslint.setup {
+  settings = {
+    codeAction = {
+      disableRuleComment = { enable = true },
+    },
+  },
+  on_attach = on_attach,
+  capabilities = capabilities,
 }
