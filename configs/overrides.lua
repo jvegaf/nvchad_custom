@@ -3,23 +3,28 @@ local cmp = require("cmp")
 
 M.treesitter = {
   ensure_installed = {
-    "vim",
-    "lua",
-    "html",
+    "c",
+    "cpp",
     "css",
-    "javascript",
-    "typescript",
+    "html",
     "java",
-    "xml",
+    "javascript",
     "json",
     "json5",
     "jsonc",
-    "tsx",
-    "c",
+    "lua",
     "markdown",
     "markdown_inline",
-    "cpp",
-    "rust"
+    "rust",
+    "python",
+    "ninja",
+    "rst",
+    "toml",
+    "yaml",
+    "tsx",
+    "typescript",
+    "vim",
+    "xml",
   },
   indent = {
     enable = true,
@@ -50,6 +55,10 @@ M.mason = {
     "jdtls",
     "lemminx",
 
+    --python
+    "pyright",
+    "ruff-lsp",
+
     "stylelint-lsp",
     "jsonlint",
     "json-lsp",
@@ -62,7 +71,7 @@ M.mason = {
     "checkstyle",
 
     "codelldb",
-    "rust_analyzer",
+    "rust-analyzer",
 
   },
 }

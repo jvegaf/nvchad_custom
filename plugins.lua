@@ -182,6 +182,24 @@ local plugins = {
     "simrat39/rust-tools.nvim",
     ft = { "rust" },
   },
+
+  {
+    "linux-cultist/venv-selector.nvim",
+    dependencies = { "neovim/nvim-lspconfig", "nvim-telescope/telescope.nvim", "mfussenegger/nvim-dap-python" },
+    opts = {
+      name = {
+        "venv",
+        ".venv",
+        "env",
+        ".env",
+      },
+    },
+    event = "VeryLazy", -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
+    keys = {
+      { "<leader>cv", "<cmd>VenvSelect<cr>", desc = "Venv Select" },
+    },
+  },
+
   -- copilot
   {
     "zbirenbaum/copilot.lua",
@@ -224,11 +242,24 @@ local plugins = {
       "theHamsta/nvim-dap-virtual-text",
       "rcarriga/nvim-dap-ui",
       "mxsdev/nvim-dap-vscode-js",
+      "mfussenegger/nvim-dap-python",
       "anuvyklack/hydra.nvim",
       "nvim-telescope/telescope-dap.nvim",
       "rcarriga/cmp-dap",
     },
-    keys = { { "<leader>dd", desc = "Open Debug menu" } },
+    keys = {
+      { "<leader>dd", desc = "Open Debug menu" },
+      -- stylua: ignore
+      { "<leader>dPt", function() require("dap-python").test_method() end, desc = "Debug Method", ft = "python" },
+      {
+        "<leader>dPc",
+        function()
+          require("dap-python").test_class()
+        end,
+        desc = "Debug Class",
+        ft = "python",
+      },
+    },
     config = function()
       require "custom.configs.dap"
     end,
