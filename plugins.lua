@@ -63,6 +63,48 @@ local plugins = {
   },
 
   {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-lua/popup.nvim" },
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+        dependencies = {
+          "junegunn/fzf.vim",
+          dependencies = {
+            {
+              "tpope/vim-dispatch",
+              cmd = { "Make", "Dispatch" },
+            },
+            {
+              "junegunn/fzf",
+              build = ":call fzf#install()",
+            },
+          },
+        },
+      },
+      { "nvim-telescope/telescope-fzy-native.nvim" },
+      { "nvim-tree/nvim-web-devicons" },
+      { "nvim-telescope/telescope-file-browser.nvim" },
+      { "nvim-telescope/telescope-ui-select.nvim" },
+      "benfowler/telescope-luasnip.nvim",
+      "debugloop/telescope-undo.nvim",
+      {
+        "paopaol/telescope-git-diffs.nvim",
+        dependencies = { "sindrets/diffview.nvim" },
+      },
+    },
+    config = function()
+      require("telescope").load_extension "undo"
+      require("telescope").load_extension "git_diffs"
+      require("telescope").load_extension "file_browser"
+      require("telescope").load_extension "ui-select"
+      require("telescope").load_extension "fzf"
+    end,
+  },
+
+  {
     "Exafunction/codeium.vim",
     enabled = false,
     event = "InsertEnter",
@@ -78,11 +120,89 @@ local plugins = {
   },
   {
     "LunarVim/bigfile.nvim",
+    event = "VeryLazy",
+    opts = {},
   },
   {
-
     "ethanholz/nvim-lastplace",
+    event = "BufWinEnter",
+    opts = {
+      lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
+      lastplace_ignore_filetype = { "gitcommit", "gitrebase", "hgcommit" },
+      lastplace_open_folds = true,
+    },
   },
+
+  {
+    "jvegaf/browse.nvim",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+    },
+    event = "VeryLazy",
+    keys = {
+      { "<A-s>", "<cmd>VisualSearch<cr>", mode = "v", desc = "Search on web" },
+      { "<leader>s", "<cmd>VisualBookmarks<cr>", mode = "v", desc = "Search on web bookmarks" },
+      { "<leader>i", "<cmd>InputSearch<cr>", desc = "Search on web bookmarks" },
+    },
+    config = function()
+      -- code
+      local bookmarks = {
+        ["github"] = {
+          ["name"] = "search github from neovim",
+          ["code_search"] = "https://github.com/search?q=%s&type=code",
+          ["repo_search"] = "https://github.com/search?q=%s&type=repositories",
+          ["issues_search"] = "https://github.com/search?q=%s&type=issues",
+          ["pulls_search"] = "https://github.com/search?q=%s&type=pullrequests",
+        },
+        ["npm"] = "https://www.npmjs.com/search?q=%s",
+        ["pipy"] = "https://pypi.org/search/?q=%s",
+        ["stackoverflow"] = "https://stackoverflow.com/search?q=%s",
+        ["youtube"] = "https://www.youtube.com/results?search_query=%s&page=&utm_source=opensearch",
+      }
+
+      local browse = require "browse"
+
+      local function command(name, rhs, opts)
+        opts = opts or {}
+        vim.api.nvim_create_user_command(name, rhs, opts)
+      end
+
+      command("InputSearch", function()
+        browse.input_search()
+      end, {})
+
+      command("VisualSearch", function(input)
+        browse.input_search(input)
+      end, {})
+
+      -- this will open telescope using dropdown theme with all the available options
+      -- in which `browse.nvim` can be used
+      command("Browse", function()
+        browse.browse { bookmarks = bookmarks }
+      end)
+
+      command("Bookmarks", function()
+        browse.open_bookmarks { bookmarks = bookmarks }
+      end)
+
+      command("VisualBookmarks", function(input)
+        browse.open_bookmarks { bookmarks = bookmarks, visual_text = input }
+      end)
+
+      command("DevdocsSearch", function()
+        browse.devdocs.search()
+      end)
+
+      command("DevdocsFiletypeSearch", function()
+        browse.devdocs.search_with_filetype()
+      end)
+
+      command("MdnSearch", function()
+        browse.mdn.search()
+      end)
+    end,
+  },
+
   {
     "sontungexpt/url-open",
     cmd = "URLOpenUnderCursor",
@@ -97,15 +217,55 @@ local plugins = {
     end,
   },
   {
+    "ThePrimeagen/refactoring.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-telescope/telescope.nvim",
+    },
+    keys = {
+      { "<leader>rr", "<cmd>lua require('refactoring').select_refactor()<cr>", mode = { "n", "x" }, desc = "Refactor" },
+      {
+        "<leader>re",
+        "<cmd>lua require('refactoring').refactor('Extract Function')<cr>",
+        mode = { "x" },
+        desc = "Extract Function",
+      },
+      {
+        "<leader>rf",
+        "<cmd>lua require('refactoring').refactor('Extract Function To File')<cr>",
+        mode = { "x" },
+        desc = "Extract Function to file",
+      },
+      {
+        "<leader>rv",
+        "<cmd>lua require('refactoring').refactor('Extract Variable')<cr>",
+        mode = { "x" },
+        desc = "Extract Variable",
+      },
+      {
+        "<leader>ri",
+        "<cmd>lua require('refactoring').refactor('Inline Variable')<cr>",
+        mode = { "n", "x" },
+        desc = "Inline Variable",
+      },
+      { "<leader>rb", "<cmd>lua require('refactoring').refactor('Extract Block')<cr>", desc = "Extract Block" },
+      {
+        "<leader>rbf",
+        "<cmd>lua require('refactoring').refactor('Extract Block To File')<cr>",
+        desc = "Extract Block to file",
+      },
+    },
+    config = function()
+      require("refactoring").setup {}
+      require("telescope").load_extension "refactoring"
+    end,
+  },
+  {
     "Wansmer/treesj",
     keys = { { "<leader>m", "<CMD>TSJToggle<CR>", desc = "Toggle Split Join" } },
     cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
     opts = { use_default_keymaps = false },
-  },
-  {
-    "voldikss/vim-browser-search",
-    lazy = false,
-    keys = { { "<A-s>", ":'<,'>BrowserSearch<cr>", mode = "v", desc = "Search on web" } },
   },
   {
     "mg979/vim-visual-multi",
@@ -200,6 +360,48 @@ local plugins = {
     },
   },
 
+  {
+    "folke/which-key.nvim",
+    config = function(_, opts)
+      dofile(vim.g.base46_cache .. "whichkey")
+      require("which-key").setup(opts)
+      local present, wk = pcall(require, "which-key")
+      if not present then
+        return
+      end
+      wk.register {
+        -- add group
+        ["<leader>"] = {
+          f = { name = "+Find" },
+          l = { name = "+LSP" },
+          g = { name = "+Git" },
+          c = { name = "+Code" },
+          r = { name = "+Refactor" },
+          s = { name = "+System" },
+          t = { name = "+Test" },
+          x = { name = "+Diagnostics" },
+          u = { name = "+UI" },
+        },
+      }
+      wk.register {
+        -- add group
+        ["<leader>c"] = {
+          r = { name = "+Run" },
+        },
+      }
+      wk.register {
+        -- add group
+        ["<leader>g"] = {
+          d = { name = "+Diff" },
+          h = { name = "+Hunk" },
+        },
+      }
+    end,
+    setup = function()
+      require("core.utils").load_mappings "whichkey"
+    end,
+  },
+
   -- copilot
   {
     "zbirenbaum/copilot.lua",
@@ -276,34 +478,11 @@ local plugins = {
       },
     },
     keys = {
-      {
-        "<leader>tt",
-        function()
-          require("neotest").run.run(vim.fn.expand "%")
-        end,
-        desc = "Run File",
-      },
-      {
-        "<leader>tT",
-        function()
-          require("neotest").run.run(vim.loop.cwd())
-        end,
-        desc = "Run All Test Files",
-      },
-      {
-        "<leader>tr",
-        function()
-          require("neotest").run.run()
-        end,
-        desc = "Run Nearest",
-      },
-      {
-        "<leader>ts",
-        function()
-          require("neotest").summary.toggle()
-        end,
-        desc = "Toggle Summary",
-      },
+    -- stylua: ignore
+      { "<leader>tt", function() require("neotest").run.run(vim.fn.expand "%") end, desc = "Run File" },
+      { "<leader>tT", function() require("neotest").run.run(vim.loop.cwd()) end, desc = "Run All Test Files" },
+      { "<leader>tr", function() require("neotest").run.run() end, desc = "Run Nearest" },
+      { "<leader>ts", function() require("neotest").summary.toggle() end, desc = "Toggle Summary" },
       {
         "<leader>to",
         function()
@@ -311,29 +490,27 @@ local plugins = {
         end,
         desc = "Show Output",
       },
-      {
-        "<leader>tO",
-        function()
-          require("neotest").output_panel.toggle()
-        end,
-        desc = "Toggle Output Panel",
-      },
-      {
-        "<leader>tS",
-        function()
-          require("neotest").run.stop()
-        end,
-        desc = "Stop",
-      },
-      {
-        "<leader>td",
-        function()
-          require("neotest").run.run { strategy = "dap" }
-        end,
-        desc = "Debug Nearest",
-      },
+      { "<leader>tO", function() require("neotest").output_panel.toggle() end, desc = "Toggle Output Panel" },
+      { "<leader>tS", function() require("neotest").run.stop() end, desc = "Stop" },
+      { "<leader>td", function() require("neotest").run.run { strategy = "dap" } end, desc = "Debug Nearest" },
     },
   },
+
+  -- Git
+  { "lewis6991/gitsigns.nvim", event = "BufReadPre", dependencies = { "nvim-lua/plenary.nvim" } },
+  {
+    "sindrets/diffview.nvim",
+    event = "VeryLazy",
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
+  },
+  {
+    "akinsho/git-conflict.nvim",
+    event = "VeryLazy",
+    config = true,
+  },
+  { "CRAG666/code_runner.nvim", event = "VeryLazy", config = true },
+  { "kdheepak/lazygit.nvim", event = "VeryLazy", cmd = "LazyGit" },
+	{ "mvllow/modes.nvim", event = "VeryLazy", opts = overrides.modes },
 }
 
 return plugins
