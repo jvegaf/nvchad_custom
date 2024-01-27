@@ -33,6 +33,8 @@ M.general = {
     ["<leader>sh"] = { "<cmd>checkhealth<CR>", "System health", opts = { nowait = true } },
     ["<leader>lc"] = { "<cmd>CmpStatus<CR>", "CmpStatus", opts = { nowait = true } },
     ["<leader>li"] = { "<cmd>LspInfo<CR>", "LspInfo", opts = { nowait = true } },
+    ["<leader>lr"] = { "<cmd>LspRestart<CR>", "LspRestart", opts = { nowait = true } },
+    ["<leader>ll"] = { "<cmd>LspLog<CR>", "LspLog", opts = { nowait = true } },
     ["<ESC>"] = { ":nohlsearch<Bar>:echo<CR>", "Clear search", opts = { nowait = true } },
     -- Git
     ["<leader>gg"] = { "<cmd>LazyGit<CR>", "LazyGit", opts = { nowait = true } },

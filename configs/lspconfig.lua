@@ -6,7 +6,11 @@ local capabilities = require("plugins.configs.lspconfig").capabilities
 local lspconfig = require "lspconfig"
 
 -- if you just want default config for the servers then put them in a table
-local servers = { "html", "cssls", "clangd", "pyright" }
+local servers = {
+  "html",
+  "cssls",
+  "clangd",
+}
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
@@ -34,6 +38,21 @@ lspconfig.eslint.setup {
   },
   on_attach = on_attach,
   capabilities = capabilities,
+}
+
+lspconfig.pyright.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        diagnosticSeverityOverrides = {
+          reportMissingImports = "information",
+        },
+      },
+    },
+  },
 }
 
 
