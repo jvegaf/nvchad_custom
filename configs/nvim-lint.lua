@@ -14,6 +14,7 @@ require('lint').linters_by_ft = {
   less = {'stylelint'},
   vue = {'eslint'},
   java = {'checkstyle'},
+  python = {'ruff'},
   -- kotlin = {'ktlint'},
   c = {'clangd'},
   cpp = {'clangd'},

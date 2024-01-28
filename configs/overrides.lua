@@ -58,6 +58,7 @@ M.mason = {
     --python
     "pyright",
     "ruff-lsp",
+    "ruff",
 
     "stylelint-lsp",
     "jsonlint",

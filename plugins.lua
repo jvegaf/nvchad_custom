@@ -106,7 +106,7 @@ local plugins = {
 
   {
     "Exafunction/codeium.vim",
-    enabled = false,
+    enabled = true,
     event = "InsertEnter",
     -- stylua: ignore
     config = function()
@@ -286,13 +286,14 @@ local plugins = {
   -- trouble
   {
     "folke/trouble.nvim",
+    event = "VeryLazy",
     cmd = { "TroubleToggle", "Trouble" },
     opts = { use_diagnostic_signs = true },
     keys = {
       { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
       { "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
       { "<leader>xL", "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
-      { "<leader>xQ", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
+      { "<leader>xs", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
       {
         "[q",
         function()
@@ -333,6 +334,7 @@ local plugins = {
   },
   {
     "mbbill/undotree",
+    event = "VeryLazy",
     cmd = "UndotreeToggle",
     keymaps = {
       { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Undotree Toggle" },
@@ -405,6 +407,7 @@ local plugins = {
   -- copilot
   {
     "zbirenbaum/copilot.lua",
+    enabled = false,
     event = "InsertEnter",
     opts = overrides.copilot,
   },
@@ -413,6 +416,7 @@ local plugins = {
     dependencies = {
       {
         "zbirenbaum/copilot-cmp",
+        enabled = false,
         config = function()
           require("copilot_cmp").setup()
         end,
@@ -480,9 +484,27 @@ local plugins = {
     keys = {
     -- stylua: ignore
       { "<leader>tt", function() require("neotest").run.run(vim.fn.expand "%") end, desc = "Run File" },
-      { "<leader>tT", function() require("neotest").run.run(vim.loop.cwd()) end, desc = "Run All Test Files" },
-      { "<leader>tr", function() require("neotest").run.run() end, desc = "Run Nearest" },
-      { "<leader>ts", function() require("neotest").summary.toggle() end, desc = "Toggle Summary" },
+      {
+        "<leader>tT",
+        function()
+          require("neotest").run.run(vim.loop.cwd())
+        end,
+        desc = "Run All Test Files",
+      },
+      {
+        "<leader>tr",
+        function()
+          require("neotest").run.run()
+        end,
+        desc = "Run Nearest",
+      },
+      {
+        "<leader>ts",
+        function()
+          require("neotest").summary.toggle()
+        end,
+        desc = "Toggle Summary",
+      },
       {
         "<leader>to",
         function()
@@ -490,9 +512,27 @@ local plugins = {
         end,
         desc = "Show Output",
       },
-      { "<leader>tO", function() require("neotest").output_panel.toggle() end, desc = "Toggle Output Panel" },
-      { "<leader>tS", function() require("neotest").run.stop() end, desc = "Stop" },
-      { "<leader>td", function() require("neotest").run.run { strategy = "dap" } end, desc = "Debug Nearest" },
+      {
+        "<leader>tO",
+        function()
+          require("neotest").output_panel.toggle()
+        end,
+        desc = "Toggle Output Panel",
+      },
+      {
+        "<leader>tS",
+        function()
+          require("neotest").run.stop()
+        end,
+        desc = "Stop",
+      },
+      {
+        "<leader>td",
+        function()
+          require("neotest").run.run { strategy = "dap" }
+        end,
+        desc = "Debug Nearest",
+      },
     },
   },
 
@@ -510,7 +550,7 @@ local plugins = {
   },
   { "CRAG666/code_runner.nvim", event = "VeryLazy", config = true },
   { "kdheepak/lazygit.nvim", event = "VeryLazy", cmd = "LazyGit" },
-	{ "mvllow/modes.nvim", event = "VeryLazy", opts = overrides.modes },
+  { "mvllow/modes.nvim", event = "VeryLazy", opts = overrides.modes },
 }
 
 return plugins

@@ -24,6 +24,9 @@ local M = {
     rust = {
       require("formatter.filetypes.rust").rustfmt
     },
+    python = {
+      require("formatter.filetypes.python").ruff
+    },
     ["*"] = {
       require("formatter.filetypes.any").remove_trailing_whitespace
     }
